@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 
 /**
@@ -46,14 +47,22 @@ public void sendAndReceive() {
             } catch (ClassNotFoundException e) {
                 System.err.println("Classe Studente non definita");
             }
+
+
+            // Ricezione della risposta
+            DatagramPacket incomingPacket2 = new DatagramPacket(incomingData, incomingData.length);
+            Socket.receive(incomingPacket2);
+            String risposta = new String(incomingPacket2.getData(), 0, incomingPacket2.getLength());
+            System.out.println("Messaggio dal Client: " + risposta);
+
         
             //Recupero dei dati del mittente
             InetAddress IPAddress = incomingPacket.getAddress();
             int port = incomingPacket.getPort();
             
             //Invio della risposta
-            String risposta = "Grazie del messaggio!";
-            byte[] replyByte = risposta.getBytes();
+            String risposta2 = "Grazie del messaggio!";
+            byte[] replyByte = risposta2.getBytes();
             DatagramPacket replyPacket = new DatagramPacket(replyByte, replyByte.length, IPAddress, port);
             socket.send(replyPacket);
             
