@@ -51,7 +51,8 @@ public void sendAndReceive() {
 
             // Ricezione della risposta
             DatagramPacket incomingPacket2 = new DatagramPacket(incomingData, incomingData.length);
-            Socket.receive(incomingPacket2);
+            // datagramSOcket non socket
+            socket.receive(incomingPacket2);
             String risposta = new String(incomingPacket2.getData(), 0, incomingPacket2.getLength());
             System.out.println("Messaggio dal Client: " + risposta);
 
